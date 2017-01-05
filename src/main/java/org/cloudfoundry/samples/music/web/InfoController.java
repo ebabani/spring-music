@@ -2,6 +2,7 @@ package org.cloudfoundry.samples.music.web;
 
 import org.cloudfoundry.samples.music.domain.ApplicationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.Cloud;
 import org.springframework.cloud.service.ServiceInfo;
 import org.springframework.core.env.Environment;
@@ -23,10 +24,14 @@ public class InfoController {
         this.springEnvironment = springEnvironment;
     }
 
+    @Value("${name}")
+    private String name;
+
     @RequestMapping(value = "/appinfo")
     public ApplicationInfo info() {
-        return new ApplicationInfo(springEnvironment.getActiveProfiles(), getServiceNames());
+        return new ApplicationInfo(springEnvironment.getActiveProfiles(), getServiceNames(), this.name);
     }
+
 
     @RequestMapping(value = "/service")
     public List<ServiceInfo> showServiceInfo() {

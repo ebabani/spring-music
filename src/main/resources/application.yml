@@ -1,5 +1,6 @@
 
 ---
+name: "User"
 spring:
   jpa:
     generate-ddl: true
